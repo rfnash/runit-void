@@ -110,6 +110,11 @@ if [ -x /usr/bin/btrfs ]; then
     btrfs device scan || emergency_shell
 fi
 
+if [ -x /usr/sbin/lvmetad ]; then
+    msg "Starting the LVM metadata cache daemon...\n"
+    lvmetad || emergency_shell
+fi
+
 if [ -x /usr/sbin/vgchange ]; then
     msg "Activating LVM devices...\n"
     vgchange --sysinit -a y || emergency_shell
